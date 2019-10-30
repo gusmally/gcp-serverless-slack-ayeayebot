@@ -1,58 +1,67 @@
 import json
 import random
-
-with open('config.json', 'r') as f:
-    config_data = f.read()
-config = json.loads(config_data)
+import os
+from flask import jsonify
 
 with open('data.json', 'r') as e:
     image_data = e.read()
 imagesByTerm = json.loads(image_data)
 
-def verify_web_hook(form):
-    if not form or form.get('token') != config['SLACK_TOKEN']:
+
+def verify_web_hook(form): 
+    if not form or form.get('token') != os.environ['SLACK_TOKEN']:
         raise ValueError('Invalid request/credentials.')
 
-def search_images(term):  
+
+def search_images(term):
+    print(imagesByTerm)
     imageMatches = []
+    
     for a in imagesByTerm:
         if str(term.lower()) in a:
-            imageMatches.append(a)
+            imageMatches.append(a[term.lower()])
+            
     if len(imageMatches) > 1:
-	image_url = random.choice(imageMatches)
-	
-	message = {
-		'response_type': 'in_channel',
-		'attachments': []
-	}  	
-		
-	attachment = {}
-	attachment['image_url'] = image_url
-	message['attachments'].append(attachment)
+        choice = random.choice(imageMatches)
+
+        message = {
+            "response_type": "in_channel",
+            "attachments": []
+        }
+
+        attachment = {}
+        attachment['image_url'] = choice
+        message['attachments'].append(attachment)
         return message
     elif len(imageMatches) == 1:
-	image_url = imageMatches[0]
-		
-	message = {
-		'response_type': 'in_channel',
-		'attachments': []
-	}  
-		
-	attachment = {}
-	attachment['image_url'] = image_url
-	message['attachments'].append(attachment)
+        image_url = imageMatches[0]
+
+        message = {
+            "response_type": "in_channel",
+            "attachments": []
+        }
+
+        attachment = {}
+        attachment["image_url"] = image_url
+        print(image_url)
+        message["attachments"].append(attachment)
         return message
     else:
-	message = {
-		'response_type': 'ephemeral',
-		'text': 'no aye ayes matched that term :( _this form will hopefully one day support submissions_',
-	}  
+        message = {
+            "response_type": "ephemeral",
+            "text": "no aye ayes matched that term :( _this form will hopefully one day support submissions_"
+        }
         return message
 
-def acronym_bot(request):
+
+def ayeaye_bot(request):
     if request.method != 'POST':
         return 'Only POST requests are accepted', 405
+    
+    print('request:');
+    print(request.form['text'])
 
     verify_web_hook(request.form)
     search_response = search_images(request.form['text'])
-    return search_response
+    print(search_response)
+    return jsonify(search_response)
