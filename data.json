@@ -1,8 +1,23 @@
 [
-  {
-		"lunch": "https://i2.wp.com/www.mrsphysics.co.uk/blog/wp-content/uploads/2017/08/Aye-Aye-3.jpg?fit=870%2C585&ssl=1"
+	{
+		"lunch": "https://i2.wp.com/www.mrsphysics.co.uk/blog/wp-content/uploads/2017/08/Aye-Aye-3.jpg"
 	},
 	{
-		"baby": "https://www.philadelphiazoo.org/getattachment/10e1b2ca-2bfb-4da8-ad20-fd3bff085e60/Aye-aye_BabyLoki_01.aspx"
-	}
+		"baby": "https://www.sciencealert.com/images/2018-09/tonks-and-hand.jpg"
+	},
+        {
+    	    	"trapped": "https://i.imgur.com/HtcNtp2.jpg"
+        },
+  	{
+   		"shocked": "https://i.ytimg.com/vi/jHs5POy8-8Y/maxresdefault.jpg"
+  	},
+  	{
+  		"love": "https://lemur.duke.edu/wordpress/wp-content/uploads/2018/02/Agatha-with-rose-CROP.jpg"
+        },
+  	{
+    		"food": "http://animalia.bio/uploads/animals/photos/full/1x1/aye-aye-1.jpg"
+  	},
+  	{	
+    		"no": "https://mollyejohnson.files.wordpress.com/2018/06/aye-aye.jpg"
+  	}
 ]
